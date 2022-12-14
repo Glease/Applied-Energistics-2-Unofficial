@@ -241,9 +241,8 @@ public class CraftingTreeProcess {
             final boolean perfectMatch = is.getItem() == what2.getItem()
                     && (is.getItem().isDamageable() || is.getItemDamage() == what2.getItemDamage());
             if (perfectMatch
-                    || ((this.details != null)
-                            && (this.details.canSubstitute())
-                            && is.fuzzyComparison(what2, FuzzyMode.IGNORE_ALL))) {
+                    || (this.details.canSubstitute() || this.details.canBeSubstitute())
+                            && is.fuzzyComparison(what2, FuzzyMode.IGNORE_ALL)) {
                 what2 = is.copy();
                 what2.setStackSize(is.getStackSize());
                 return what2;
