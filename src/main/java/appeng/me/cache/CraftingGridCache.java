@@ -88,7 +88,7 @@ public class CraftingGridCache
     private final IGrid grid;
     private final Map<ICraftingPatternDetails, List<ICraftingMedium>> craftingMethods = new HashMap<>();
     // Used for fuzzy lookups
-    private final ItemList craftableItemSubstitutes = new ItemList();
+    private final ItemList craftableItemSubstitutes = new ItemList(true);
     private final Map<IAEItemStack, ImmutableList<ICraftingPatternDetails>> craftableItems = new HashMap<>();
     private final Set<IAEItemStack> emitableItems = new HashSet<IAEItemStack>();
     private final Map<String, CraftingLinkNexus> craftingLinks = new HashMap<String, CraftingLinkNexus>();
@@ -416,7 +416,7 @@ public class CraftingGridCache
             final World world) {
         final ImmutableList<ICraftingPatternDetails> res;
         boolean normalMode = false;
-        if (details != null && details.canSubstitute()) {
+        if (details != null && details.canBeSubstitute()) {
             final Collection<IAEItemStack> substitutions =
                     this.craftableItemSubstitutes.findFuzzy(whatToCraft, FuzzyMode.IGNORE_ALL);
             if (substitutions.isEmpty()) {
@@ -426,6 +426,7 @@ public class CraftingGridCache
                 ImmutableList.Builder<ICraftingPatternDetails> allPatterns = ImmutableList.builder();
                 for (IAEItemStack alternative : substitutions) {
                     allPatterns.addAll(this.craftableItems.get(alternative));
+                    break;
                 }
                 res = allPatterns.build();
             }
