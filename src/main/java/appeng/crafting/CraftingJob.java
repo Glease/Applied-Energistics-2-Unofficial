@@ -215,7 +215,7 @@ public class CraftingJob implements Runnable, ICraftingJob {
                 throw new InterruptedException();
             }
         }
-        this.incTime++;
+//        this.incTime++;
     }
 
     private void finish() {
