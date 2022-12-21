@@ -20,7 +20,6 @@ package appeng.crafting;
 
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
-import appeng.api.config.FuzzyMode;
 import appeng.api.networking.crafting.ICraftingGrid;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
 import appeng.api.networking.security.BaseActionSource;
@@ -244,8 +243,7 @@ public class CraftingTreeProcess {
             // catch both of them here
             final boolean perfectMatch = is.getItem() == what2.getItem()
                     && (is.getItem().isDamageable() || is.getItemDamage() == what2.getItemDamage());
-            if (perfectMatch
-                    || this.details.canBeSubstitute() && is.fuzzyComparison(what2, FuzzyMode.IGNORE_ALL)) {
+            if (perfectMatch || this.details.canBeSubstitute() && is.sameOre(what2)) {
                 what2 = is.copy();
                 what2.setStackSize(is.getStackSize());
                 return what2;
